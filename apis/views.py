@@ -12,14 +12,15 @@ from .serializers import SubscriptionSerializer
 def subscription_view(request, format=None):
     if request.method == 'GET':
         print('-----------',request.user.customer.id,'--------------')
-        subscriptions = Customer.objects.filter(pk=request.user.customer.id).select_related('subscriptions').all()
+        subscriptions = Subscription.objects.filter(customer__id=request.user.customer.id).select_related('customer').all()
         serializer = SubscriptionSerializer(
             subscriptions, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
+        print(request.data)
         serializer = SubscriptionSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        serializer.save(customer=request.user.customer)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
