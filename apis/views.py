@@ -13,7 +13,7 @@ def subscription_view(request, format=None):
     if request.method == 'GET':
         subscriptions = Customer.objects.filter(pk=request.user.id).select_related('subscriptions').all()
         serializer = SubscriptionSerializer(
-            subscriptions, many=True, context={'request': request})
+            subscriptions, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
         serializer = SubscriptionSerializer(data=request.data)
