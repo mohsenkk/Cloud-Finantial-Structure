@@ -11,7 +11,8 @@ from .serializers import SubscriptionSerializer
 @permission_classes([IsAuthenticated])
 def subscription_view(request, format=None):
     if request.method == 'GET':
-        subscriptions = Customer.objects.filter(pk=request.user.id).select_related('subscriptions').all()
+        print('-----------',request.user.customer.id,'--------------')
+        subscriptions = Customer.objects.filter(pk=request.user.customer.id).select_related('subscriptions').all()
         serializer = SubscriptionSerializer(
             subscriptions, many=True)
         return Response(serializer.data)
