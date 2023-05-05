@@ -15,7 +15,7 @@ class Subscription(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='subscriptions')
 
 
-class Invoic(models.Model):
+class Invoice(models.Model):
     start_date = models.DateTimeField(auto_now_add=True)
-    end_date = models.DateTimeField()
+    end_date = models.DateTimeField(auto_now_add=True)
     subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE, related_name='invoices')
