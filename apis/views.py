@@ -29,6 +29,16 @@ class ActivationViewSet(GenericViewSet):
     serializer_class = SubscriptionSerializer
 
     def create(self, request, *args, **kwargs):
-        Subscription.objects.get(pk=self.kwargs['pk']).is_active = False
-        return Response(Subscription.objects.get(pk=self.kwargs['pk']).is_active)
+        Subscription.objects.filter(pk=self.kwargs['pk']).update(is_active=True)
+        return Response("Subscription activated successfully.")
+
+
+class DeactivationViewSet(GenericViewSet):
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = SubscriptionSerializer
+
+    def create(self, request, *args, **kwargs):
+        Subscription.objects.filter(pk=self.kwargs['pk']).update(is_active=False)
+        return Response("Subscription deactivated successfully.")
 
