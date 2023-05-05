@@ -3,11 +3,13 @@ from . import views
 from rest_framework import routers
 
 router = routers.SimpleRouter()
-router.register('subscription/v2', views.SubscriptionViewSet, 'subscription')
+router.register('subscription', views.SubscriptionViewSet, 'subscription')
+router.register('activate/(?P<pk>[^/.]+)', views.ActivationViewSet, 'activate')
+
 
 # URLConf
 urlpatterns = [
-    path('subscription/', views.subscription_view),
+
 ]
 
 urlpatterns += router.urls

@@ -9,7 +9,6 @@ from .serializers import SubscriptionSerializer
 
 
 class SubscriptionViewSet(mixins.CreateModelMixin,
-                          mixins.RetrieveModelMixin,
                           mixins.ListModelMixin,
                           GenericViewSet):
     permission_classes = (IsAuthenticated,)
@@ -22,3 +21,14 @@ class SubscriptionViewSet(mixins.CreateModelMixin,
 
     def perform_create(self, serializer):
         serializer.save(customer=self.request.user.customer)
+
+
+class ActivationViewSet(GenericViewSet):
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = SubscriptionSerializer
+
+    def create(self, request, *args, **kwargs):
+        Subscription.objects.get(pk=self.kwargs['pk']).is_active = False
+        return Response(Subscription.objects.get(pk=self.kwargs['pk']).is_active)
+
