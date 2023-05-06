@@ -19,8 +19,7 @@ def invoice_creator():
         last_invoice = Invoice.objects.filter(subscription__id=subscription.id).order_by('-start_date').first()
 
         if last_invoice is not None:
-            print(last_invoice.id, (timezone.now() - last_invoice.start_date) >= timedelta(seconds=30))
-            if (timezone.now() - last_invoice.start_date) >= timedelta(seconds=30):
+            if (timezone.now() - last_invoice.start_date) >= timedelta(minutes=10):
                 last_invoice.end_date = timezone.now()
                 last_invoice.save()
                 if customer.credit < subscription.unit_price:

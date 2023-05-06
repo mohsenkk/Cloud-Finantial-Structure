@@ -9,7 +9,7 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'every-30-seconds': {
         'task': 'apis.tasks.invoice_creator',
-        'schedule': 10,
+        'schedule': 30,
     },
 }
 app.conf.timezone = 'UTC'
