@@ -58,6 +58,7 @@ class DeactivationViewSet(GenericViewSet):
         Subscription.objects.filter(pk=self.kwargs['pk']).update(is_active=False)
         return Response("Subscription deactivated successfully.")
 
+
 class InvoicehistoryViewSet(GenericViewSet):
     permission_classes = (IsAuthenticated,)
     authentication_classes = (TokenAuthentication,)
@@ -66,6 +67,7 @@ class InvoicehistoryViewSet(GenericViewSet):
     def list(self, request):
         customer = self.request.user.customer
         cost = Invoice.objects.filter(subscription__customer=customer).aggregate(Sum('subscription__unit_price'))['subscription__unit_price__sum']
+        cost = cost if cost is not None else 0
         number_of_invoices = Invoice.objects.filter(subscription__customer=customer).count()
         serializer = InvoiceSerializer(Invoice.objects.filter(subscription__customer=customer), many=True)
-        return Response({"cost": cost ,"number of invoices": number_of_invoices,"invoices": serializer.data})
+        return Response({"cost": cost, "number of invoices": number_of_invoices, "invoices": serializer.data})
