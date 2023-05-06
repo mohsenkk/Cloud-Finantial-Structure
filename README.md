@@ -86,9 +86,35 @@ celery -A celeryapp worker -l info
 ```
 
 Now we should open [admin](http://127.0.0.1:8000/admin/) interface of our project in the browser and create a customer.Then we can create a token for required authorization.
-We can test the API using [Postman](https://www.postman.com/), first we should set Authorization Key to toke as below:
+We can test the API using [Postman](https://www.postman.com/), first we should set Authorization Key to toke for each api test as below:
 
+![plot](./images/1.png)
 
+Now we test apis:
+
+1.POST method of subscription api:
+
+![plot](./images/POST_subscription.png)
+
+1.GET method of subscription api:
+
+![plot](./images/GET_subscription.png)
+
+1.GET method of invoice api:
+
+![plot](./images/invoce.png)
+
+1.GET method of invoicehistory api:
+
+![plot](./images/invoicehistory.png)
+
+1.PUT method of activate api:
+
+![plot](./images/activate.png)
+
+1.PUT method of deactivate api:
+
+![plot](./images/deactivate.png)
 
 
 
