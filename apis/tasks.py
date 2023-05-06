@@ -16,7 +16,6 @@ def invoice_creator():
     subscriptions = Subscription.objects.filter(is_active=True)
     for subscription in subscriptions:
         customer = Customer.objects.get(subscriptions__id=subscription.id)
-        print(customer.credit)
         last_invoice = Invoice.objects.filter(subscription__id=subscription.id).order_by('-start_date').first()
 
         if last_invoice is not None:
