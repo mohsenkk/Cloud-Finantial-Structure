@@ -3,6 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
+from django.db.models import Sum
 
 from subscription.models import Subscription, Invoice
 from .serializers import SubscriptionSerializer, InvoiceSerializer
@@ -57,3 +58,14 @@ class DeactivationViewSet(GenericViewSet):
         Subscription.objects.filter(pk=self.kwargs['pk']).update(is_active=False)
         return Response("Subscription deactivated successfully.")
 
+class InvoicehistoryViewSet(GenericViewSet):
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = SubscriptionSerializer
+
+    def list(self, request):
+        customer = self.request.user.customer
+        cost = Invoice.objects.filter(subscription__customer=customer).aggregate(Sum('subscription__unit_price'))['subscription__unit_price__sum']
+        number_of_invoices = Invoice.objects.filter(subscription__customer=customer).count()
+        serializer = InvoiceSerializer(Invoice.objects.filter(subscription__customer=customer), many=True)
+        return Response({"cost": cost ,"number of invoices": number_of_invoices,"invoices": serializer.data})

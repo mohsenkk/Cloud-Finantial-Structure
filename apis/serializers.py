@@ -12,6 +12,6 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Invoice
-        fields = ['start_date', 'end_date', 'subscription']
+        fields = ['id', 'start_date', 'end_date', 'subscription']
         extra_kwargs = {'subscription': {'required': False}} 
 
