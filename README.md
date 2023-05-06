@@ -79,23 +79,23 @@ Now we test apis:
 
 ![plot](./images/POST_subscription.png)
 
-1.GET method of subscription api:
+2.GET method of subscription api:
 
 ![plot](./images/GET_subscription.png)
 
-1.GET method of invoice api:
+3.GET method of invoice api:
 
 ![plot](./images/invoce.png)
 
-1.GET method of invoicehistory api:
+4.GET method of invoicehistory api:
 
 ![plot](./images/invoicehistory.png)
 
-1.PUT method of activate api:
+5.PUT method of activate api:
 
 ![plot](./images/activate.png)
 
-1.PUT method of deactivate api:
+6.PUT method of deactivate api:
 
 ![plot](./images/deactivate.png)
 
